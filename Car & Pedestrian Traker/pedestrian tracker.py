@@ -7,7 +7,7 @@ video = cv2.VideoCapture('Pedestrian.mp4')
 pedestrian_tracker_file = cv2.CascadeClassifier('haarcascade_fullbody.xml')
 
 # create pedestrian classifier
-pedestrian_tracker = cv2.CascadeClassifier('pedestrian_tracker_file')
+pedestrian_classifier = cv2.CascadeClassifier(pedestrian_tracker_file)
 
 
 #Run forever until car stops or something
@@ -25,7 +25,7 @@ while True:
         break
 
     # detect cars
-    pedestrian = pedestrian_tracker.detectMultiScale(grayscaled_frame)
+    pedestrian = pedestrian_classifier.detectMultiScale(grayscaled_frame)
 
      # Draw rectangles around the cars
     for (x, y, w, h) in pedestrian:
@@ -41,5 +41,7 @@ while True:
     if key ==81 or key ==113:
         break
 
+### Release videoCapture object
+video.release()
 
 print('Code Complete')
