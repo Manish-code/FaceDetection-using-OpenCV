@@ -34,7 +34,10 @@ while True:
     cv2.imshow('Car Detector', frame)
 
     # Dont autoclose ( wait here in the code and listen for a key to press )
-    cv2.waitKey(3)
+    key = cv2.waitKey(3)
 
+     ### Stop if Q is pressed
+    if key ==81 or key ==113:
+        break
 
     

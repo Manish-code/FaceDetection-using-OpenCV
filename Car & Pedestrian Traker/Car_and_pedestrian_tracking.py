@@ -1,14 +1,14 @@
 import cv2
 
 # Our Image
-video = cv2.VideoCapture('car video.mp4 ')
+video = cv2.VideoCapture('Pedestrian.mp4 ')
 
 # Our pre-trained car classifier
-classifier_file = 'car_detector.xml'
-
+pedestrian_classifier_file = 'haarcascade_fullbody.xml'
+car_classifier_file = 'car_detector.xml'
 #create classifier
-car_tracker = cv2.CascadeClassifier(classifier_file)
-
+pedestrian_classifier = cv2.CascadeClassifier(pedestrian_classifier_file)
+car_classifier = cv2.CascadeClassifier(car_classifier_file)
 #Run forever until car stops or something
 
 while True:
@@ -23,18 +23,23 @@ while True:
     else:
         break
 
-    # detect cars
-    cars = car_tracker.detectMultiScale(grayscaled_frame)
+    # detect cars and pedestrians
+    cars = car_classifier.detectMultiScale(grayscaled_frame)
+    pedestrian = pedestrian_classifier.detectMultiScale(grayscaled_frame)
 
-     # Draw rectangles around the cars
+     # Draw rectangles around the cars and pedestrian
     for (x, y, w, h) in cars:
         cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 1)
 
     # Display the image with the faces spotted
-    cv2.imshow('Car Detector', frame)
+    cv2.imshow('Car and Pedestrian Detector', frame)
 
     # Dont autoclose ( wait here in the code and listen for a key to press )
-    cv2.waitKey(3)
+    key = cv2.waitKey(1)
+
+     ### Stop if Q is pressed
+    if key ==81 or key ==113:
+        break
 
 
     
